@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "629402435306",
+    "project_id": "mobile-ventilator",
+    "storage_bucket": "mobile-ventilator.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:629402435306:android:215253ae286365875ae193",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "629402435306-8nf4m5jpujr0u8v7c9rk0s81k2lnfsh4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIhIhnYJSLBgyLsJFPukWNAUmav-YFHnQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "629402435306-8nf4m5jpujr0u8v7c9rk0s81k2lnfsh4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
