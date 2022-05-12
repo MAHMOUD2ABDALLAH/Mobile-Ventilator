@@ -2,11 +2,14 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.myapplication.data.model.Doctor;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Registeration extends AppCompatActivity {
 
@@ -18,9 +21,9 @@ public class Registeration extends AppCompatActivity {
         binding= com.example.myapplication.databinding.ActivityRegisterationBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.button5.setOnClickListener(view -> {
+        binding.btnSubmit.setOnClickListener(view -> {
             if (validation()){
-                Log.e("TAG", "onClick: " );
+                registerDoctorToFirestore();
             }
         });
     }
@@ -56,5 +59,25 @@ public class Registeration extends AppCompatActivity {
 
         Intent submit=new Intent(this,submission_done.class);
         startActivity(submit);
+    }
+
+    private void registerDoctorToFirestore() {
+        RadioButton rbGender=findViewById(binding.rgGender.getCheckedRadioButtonId());
+        Doctor newDoctor=new Doctor(
+                binding.etFullName.getText().toString(),
+                binding.etEmail.getText().toString(),
+                binding.etPassword.getText().toString(),
+                rbGender.getText().toString(),
+                binding.etOrganization.getText().toString(),
+                binding.etOrganizationID.getText().toString(),
+                binding.etPhone.getText().toString(),
+                binding.etWorkType.getText().toString()
+        );
+        FirebaseFirestore.getInstance()
+                .collection("Doctors")
+                .add(newDoctor).addOnSuccessListener(documentReference -> {
+                    onBackPressed();
+                    Toast.makeText(Registeration.this, "Doctor resister successfully", Toast.LENGTH_SHORT).show();
+                });
     }
 }
