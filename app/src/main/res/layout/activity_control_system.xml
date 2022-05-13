@@ -65,6 +65,7 @@
         android:layout_height="71dp"
         android:layout_marginTop="8dp"
         android:text="distribuation"
+        android:onClick="gotosplashview"
         android:backgroundTint="@color/red"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -33,7 +33,7 @@ public class Registeration extends AppCompatActivity {
         if (binding.etFullName.getText().toString().isEmpty()){
             valid=false;
             Toast.makeText(this, getString(R.string.name)+" is empty", Toast.LENGTH_SHORT).show();
-        }else  if (binding.etPassword.getText().toString().isEmpty()){
+        }else  if (binding.tiePassword.getText().toString().isEmpty()){
             valid=false;
             Toast.makeText(this, getString(R.string.password)+" is empty", Toast.LENGTH_SHORT).show();
         }
@@ -66,7 +66,7 @@ public class Registeration extends AppCompatActivity {
         Doctor newDoctor=new Doctor(
                 binding.etFullName.getText().toString(),
                 binding.etEmail.getText().toString(),
-                binding.etPassword.getText().toString(),
+                binding.tiePassword.getText().toString(),
                 rbGender.getText().toString(),
                 binding.etOrganization.getText().toString(),
                 binding.etOrganizationID.getText().toString(),

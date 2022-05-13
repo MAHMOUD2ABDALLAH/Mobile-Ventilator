@@ -9,10 +9,10 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
-    <string name="national_id">national ID</string>
+    <string name="national_id">national ID(optional)</string>
     <string name="name">Name</string>
-    <string name="re_national_id">re-national ID</string>
-    <string name="e_mail_preffix_of_gmail">E-mail(preffix of gmail)</string>
+    <string name="re_national_id">re-national ID(optional)</string>
+    <string name="e_mail_preffix_of_gmail">E-mail(optional)</string>
     <string name="phone">phone</string>
     <string name="work_type">work type</string>
     <string name="organization">organization</string>

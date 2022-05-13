@@ -1,10 +1,10 @@
 package com.example.myapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class control_system extends AppCompatActivity {
 
@@ -27,5 +27,11 @@ public class control_system extends AppCompatActivity {
     public void gotoprintpage(View view) {
         Intent print=new Intent(this,printing_page.class);
         startActivity(print);
+    }
+
+    public void gotosplashview(View view) {
+        Intent cluster=new Intent(this,clustering.class);
+        startActivity(cluster);
+
     }
 }
