@@ -10,7 +10,10 @@ public class Doctor {
     private String phone;
     private String workType;
 
-    public Doctor(String fullName,String email,String password, String gender,String organization, String organizationID, String phone, String workType) {
+    public Doctor() { // default for firestore mapping
+    }
+
+    public Doctor(String fullName, String email, String password, String gender, String organization, String organizationID, String phone, String workType) {
         this.fullName = fullName;
         this.email = email;
         this.password = password;

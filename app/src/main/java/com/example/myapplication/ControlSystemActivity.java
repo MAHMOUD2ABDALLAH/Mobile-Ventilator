@@ -6,7 +6,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class control_system extends AppCompatActivity {
+public class ControlSystemActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,7 +15,7 @@ public class control_system extends AppCompatActivity {
     }
 
     public void gotopatientpage(View view) {
-        Intent add=new Intent(this,patient_activity.class);
+        Intent add=new Intent(this, PatientActivity.class);
         startActivity(add);
     }
 
@@ -25,12 +25,12 @@ public class control_system extends AppCompatActivity {
     }
 
     public void gotoprintpage(View view) {
-        Intent print=new Intent(this,printing_page.class);
+        Intent print=new Intent(this, PrintingActivity.class);
         startActivity(print);
     }
 
     public void gotosplashview(View view) {
-        Intent cluster=new Intent(this,clustering.class);
+        Intent cluster=new Intent(this, ClusteringActivity.class);
         startActivity(cluster);
 
     }

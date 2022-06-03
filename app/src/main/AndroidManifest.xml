@@ -10,34 +10,34 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
-            android:name=".clustering"
+            android:name=".ClusteringActivity"
             android:exported="false" />
         <activity
-            android:name=".printing_page"
+            android:name=".PrintingActivity"
             android:exported="false" />
         <activity
             android:name=".delete_patient"
             android:exported="false" />
         <activity
-            android:name=".control_system"
+            android:name=".ControlSystemActivity"
             android:exported="false" />
         <activity
-            android:name=".login_page"
+            android:name=".LoginActivity"
             android:exported="false" />
         <activity
             android:name=".submission_done"
             android:exported="false" />
         <activity
-            android:name=".Registeration"
+            android:name=".RegistrationActivity"
             android:exported="false" />
         <activity
-            android:name=".patient_activity"
+            android:name=".PatientActivity"
             android:exported="false" />
         <activity
             android:name=".FirstChoiceActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
