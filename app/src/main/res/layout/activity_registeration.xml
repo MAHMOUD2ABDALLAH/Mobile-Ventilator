@@ -170,8 +170,8 @@
 
     <RadioGroup
         android:id="@+id/rgGender"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="95dp"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.072"
@@ -180,14 +180,14 @@
 
         <RadioButton
             android:id="@+id/rbMale"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="true"
             android:text="male" />
 
         <RadioButton
             android:id="@+id/rbFemale"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="female" />
     </RadioGroup>
