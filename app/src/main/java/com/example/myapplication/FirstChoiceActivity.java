@@ -16,7 +16,7 @@ public class FirstChoiceActivity extends AppCompatActivity {
 
 
     public void gotopatientpage(View view) {
-        Intent in=new Intent(this, PatientActivity.class);
+        Intent in=new Intent(this,RegistrationActivity.class);
         startActivity(in);
     }
 

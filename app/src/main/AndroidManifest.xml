@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
+            android:name=".symptoms"
+            android:exported="false" />
+        <activity
+            android:name=".Session"
+            android:exported="false" />
+        <activity
             android:name=".ClusteringActivity"
             android:exported="false" />
         <activity
