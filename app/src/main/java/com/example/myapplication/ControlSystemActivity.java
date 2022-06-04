@@ -20,7 +20,7 @@ public class ControlSystemActivity extends AppCompatActivity {
     }
 
     public void gotodelete(View view) {
-        Intent delete=new Intent(this,delete_patient.class);
+        Intent delete=new Intent(this, DeletePatientActivity.class);
         startActivity(delete);
     }
 

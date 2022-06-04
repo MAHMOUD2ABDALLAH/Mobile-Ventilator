@@ -11,6 +11,7 @@
     <string name="login_failed">"Login failed"</string>
     <string name="national_id">national ID(optional)</string>
     <string name="name">Name</string>
+    <string name="age">Age</string>
     <string name="re_national_id">re-national ID(optional)</string>
     <string name="e_mail_preffix_of_gmail">E-mail(optional)</string>
     <string name="phone">phone</string>

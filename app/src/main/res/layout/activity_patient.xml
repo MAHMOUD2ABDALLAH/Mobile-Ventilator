@@ -25,7 +25,7 @@
         tools:ignore="TextContrastCheck,TextContrastCheck" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName11"
+        android:id="@+id/etFullName"
         android:layout_width="215dp"
         android:layout_height="47dp"
         android:layout_marginTop="40dp"
@@ -39,7 +39,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName13"
+        android:id="@+id/etAge"
         android:layout_width="211dp"
         android:layout_height="44dp"
         android:layout_marginTop="20dp"
@@ -50,10 +50,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.034"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName11" />
+        app:layout_constraintTop_toBottomOf="@+id/etFullName" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName14"
+        android:id="@+id/etNationalId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -64,10 +64,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.031"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName13" />
+        app:layout_constraintTop_toBottomOf="@+id/etAge" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName15"
+        android:id="@+id/etReNationalId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -78,10 +78,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.031"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName14" />
+        app:layout_constraintTop_toBottomOf="@+id/etNationalId" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName19"
+        android:id="@+id/etEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -92,10 +92,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.031"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName15" />
+        app:layout_constraintTop_toBottomOf="@+id/etReNationalId" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName20"
+        android:id="@+id/etPhone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -106,10 +106,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.031"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName19" />
+        app:layout_constraintTop_toBottomOf="@+id/etEmail" />
 
     <Button
-        android:id="@+id/button11"
+        android:id="@+id/btnSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/red"
@@ -121,17 +121,19 @@
         app:layout_constraintVertical_bias="0.977" />
 
     <RadioGroup
+        android:id="@+id/rgGender"
         android:layout_width="200dp"
         android:layout_height="95dp"
         android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.033"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName20">
+        app:layout_constraintTop_toBottomOf="@+id/etPhone">
 
         <RadioButton
             android:id="@+id/radioButton"
             android:layout_width="match_parent"
+            android:checked="true"
             android:layout_height="wrap_content"
             android:text="male" />
 

@@ -48,8 +48,7 @@ public class RegistrationActivity extends AppCompatActivity {
         } else if (binding.etOrganizationID.getText().toString().isEmpty()) {
             valid = false;
             Toast.makeText(this, getString(R.string.organization_id) + " is empty", Toast.LENGTH_SHORT).show();
-        }
-        if (binding.etWorkType.getText().toString().isEmpty()) {
+        }else if (binding.etWorkType.getText().toString().isEmpty()) {
             valid = false;
             Toast.makeText(this, getString(R.string.work_type) + " is empty", Toast.LENGTH_SHORT).show();
         }

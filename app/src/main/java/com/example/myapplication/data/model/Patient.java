@@ -13,6 +13,9 @@ public class Patient {
     @ServerTimestamp
     private Date date;
 
+    public Patient() {
+    }
+
     public Patient(String fullName, String password, int age, String nationalID, String gender) {
         this.fullName = fullName;
         this.password = password;
