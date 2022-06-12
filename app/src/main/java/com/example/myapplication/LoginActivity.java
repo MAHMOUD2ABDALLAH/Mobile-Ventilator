@@ -2,12 +2,15 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.data.model.Doctor;
 import com.example.myapplication.databinding.ActivityLoginPageBinding;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Objects;
@@ -48,9 +51,20 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseFirestore.getInstance().collection("Doctors")
                 .whereEqualTo("fullName", userName)
                 .whereEqualTo("password", password).get().addOnSuccessListener(queryDocumentSnapshots -> {
-            CURRENT_DOCTOR = queryDocumentSnapshots.getDocuments().get(0).toObject(Doctor.class);
-            startActivity(new Intent(getApplicationContext(), ControlSystemActivity.class));
-            Toast.makeText(getApplicationContext(), "Doctor " + CURRENT_DOCTOR.getFullName() + " logged in successfully", Toast.LENGTH_SHORT).show();
-        });
+                    if (queryDocumentSnapshots.getDocuments().size()>0){
+                        CURRENT_DOCTOR = queryDocumentSnapshots.getDocuments().get(0).toObject(Doctor.class);
+                        startActivity(new Intent(getApplicationContext(), ControlSystemActivity.class));
+                        Toast.makeText(getApplicationContext(), "Doctor " + CURRENT_DOCTOR.getFullName() + " logged in successfully", Toast.LENGTH_SHORT).show();
+
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Doctor has no permission ", Toast.LENGTH_SHORT).show();
+                        clearForm();
+                    }
+                  }).addOnFailureListener(e -> Toast.makeText(getApplicationContext(),  "username or password is wrong", Toast.LENGTH_SHORT).show());
+    }
+
+    private void clearForm() {
+        binding.etFullName.setText("");
+        binding.etPassword.setText("");
     }
 }

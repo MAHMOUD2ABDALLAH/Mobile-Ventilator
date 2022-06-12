@@ -47,6 +47,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
     implementation 'com.google.firebase:firebase-firestore:24.1.2'
+    implementation 'androidx.cardview:cardview:1.0.0'
 
     // Lottie dependency
     def lottieVersion = "3.4.0"
