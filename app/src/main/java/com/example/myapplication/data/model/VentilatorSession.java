@@ -14,6 +14,9 @@ public class VentilatorSession {
     private Date date;
     private String diseasesType;
 
+    public VentilatorSession() {
+    }
+
     public VentilatorSession(String nationalID, int heartRate, float oxygenPercentage, float temperature) {
         this.nationalID = nationalID;
         this.heartRate = heartRate;

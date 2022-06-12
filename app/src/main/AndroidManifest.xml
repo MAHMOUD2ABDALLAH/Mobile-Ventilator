@@ -24,7 +24,7 @@
             android:name=".PrintingActivity"
             android:exported="false" />
         <activity
-            android:name=".DeletePatientActivity"
+            android:name=".deletePatient.DeletePatientActivity"
             android:exported="false" />
         <activity
             android:name=".ControlSystemActivity"

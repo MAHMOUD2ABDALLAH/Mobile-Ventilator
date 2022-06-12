@@ -6,6 +6,8 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.deletePatient.DeletePatientActivity;
+
 public class ControlSystemActivity extends AppCompatActivity {
 
     @Override

@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.RadioButton;
 import android.widget.Toast;
@@ -62,7 +63,9 @@ public class PatientActivity extends AppCompatActivity {
         FirebaseFirestore.getInstance()
                 .collection("Patients")
                 .add(newPatient).addOnSuccessListener(documentReference -> {
-            onBackPressed();
+                    Intent intent=new Intent(getApplicationContext(),Session.class);
+                    intent.putExtra("nationalID",newPatient.getNationalID());
+            startActivity(intent);
             Toast.makeText(getApplicationContext(), "Patient added successfully", Toast.LENGTH_SHORT).show();
         });
     }
