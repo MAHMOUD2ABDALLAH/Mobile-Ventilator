@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".deletePatient.DeletePatientActivity">
+    tools:context=".viewPatient.ViewPatientActivity">
 
     <TextView
         android:id="@+id/textView11"
@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:background="@color/red"
         android:gravity="center"
-        android:text="delete content"
+        android:text="patient content"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -27,8 +27,8 @@
         android:layout_height="49dp"
         android:layout_marginTop="32dp"
         android:ems="10"
-        android:inputType="textPersonName"
         android:hint="national ID"
+        android:inputType="textPersonName"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.071"
@@ -50,12 +50,10 @@
         android:id="@+id/button10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="168dp"
         android:backgroundTint="@color/red"
         android:text="delete"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.128"
         app:layout_constraintStart_toEndOf="@+id/btnSearch"
         app:layout_constraintTop_toBottomOf="@+id/etNationalID" />
 
@@ -63,12 +61,26 @@
         android:id="@+id/rvSessions"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_margin="8dp"
         android:layout_marginBottom="0dp"
-        app:spanCount="2"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        tools:listitem="@layout/item_session"
+        android:clipToPadding="true"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button10" />
+        app:layout_constraintTop_toBottomOf="@+id/button10"
+        tools:listitem="@layout/item_session" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/red"
+        android:text="print"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.235"
+        app:layout_constraintStart_toEndOf="@+id/button10"
+        app:layout_constraintTop_toBottomOf="@+id/etNationalID" />
 </androidx.constraintlayout.widget.ConstraintLayout>

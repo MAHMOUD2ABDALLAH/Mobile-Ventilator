@@ -6,7 +6,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.myapplication.deletePatient.DeletePatientActivity;
+import com.example.myapplication.viewPatient.ViewPatientActivity;
 
 public class ControlSystemActivity extends AppCompatActivity {
 
@@ -22,7 +22,7 @@ public class ControlSystemActivity extends AppCompatActivity {
     }
 
     public void gotodelete(View view) {
-        Intent delete=new Intent(this, DeletePatientActivity.class);
+        Intent delete=new Intent(this, ViewPatientActivity.class);
         startActivity(delete);
     }
 

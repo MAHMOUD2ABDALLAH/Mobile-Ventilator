@@ -1,4 +1,4 @@
-package com.example.myapplication.deletePatient;
+package com.example.myapplication.viewPatient;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -9,21 +9,21 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.myapplication.data.model.Patient;
 import com.example.myapplication.data.model.VentilatorSession;
-import com.example.myapplication.databinding.ActivityDeletePatientBinding;
+import com.example.myapplication.databinding.ActivityViewPatientBinding;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
-public class DeletePatientActivity extends AppCompatActivity {
+public class ViewPatientActivity extends AppCompatActivity {
 
-    private ActivityDeletePatientBinding binding;
+    private ActivityViewPatientBinding binding;
     private ArrayList<VentilatorSession> sessions=new ArrayList<>();
     private PatientSessionAdapter patientSessionAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding=ActivityDeletePatientBinding.inflate(getLayoutInflater());
+        binding=ActivityViewPatientBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         binding.btnSearch.setOnClickListener(view -> getPatientByNationalID(binding.etNationalID.getText().toString()));
@@ -32,9 +32,9 @@ public class DeletePatientActivity extends AppCompatActivity {
     private void getPatientByNationalID(String nationalID){
         FirebaseFirestore.getInstance().collection("Patients")
                 .whereEqualTo("nationalID",nationalID)
-                .get().addOnSuccessListener(queryDocumentSnapshots -> {
-            if (queryDocumentSnapshots.getDocuments().size()>0){
-                for (DocumentSnapshot documentSnapshot:queryDocumentSnapshots.getDocuments()) {
+                .get().addOnSuccessListener(patientSnapshots -> {
+            if (patientSnapshots.getDocuments().size()>0){
+                for (DocumentSnapshot documentSnapshot:patientSnapshots.getDocuments()) {
                     Patient currentPatient=documentSnapshot.toObject(Patient.class);
                    if (currentPatient!=null){
                        getPatientSessions(currentPatient.getNationalID());

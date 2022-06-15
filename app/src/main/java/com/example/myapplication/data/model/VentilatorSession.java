@@ -3,16 +3,19 @@ package com.example.myapplication.data.model;
 import com.google.firebase.firestore.ServerTimestamp;
 
 import java.util.Date;
+import java.util.Map;
 
 public class VentilatorSession {
     private String nationalID;
     private int heartRate;
     private float oxygenPercentage;
     private float temperature;
-    private String features;
+    private Map<String,String> symptoms;
     @ServerTimestamp
     private Date date;
-    private String diseasesType;
+    private String illness;
+    private String organizationID;
+    private String doctorName;
 
     public VentilatorSession() {
     }
@@ -40,23 +43,39 @@ public class VentilatorSession {
         return temperature;
     }
 
-    public String getFeatures() {
-        return features;
-    }
-
     public Date getDate() {
         return date;
     }
 
-    public String getDiseasesType() {
-        return diseasesType;
+    public String getIllness() {
+        return illness;
     }
 
-    public void setFeatures(String features) {
-        this.features = features;
+    public void setIllness(String illness) {
+        this.illness = illness;
     }
 
-    public void setDiseasesType(String diseasesType) {
-        this.diseasesType = diseasesType;
+    public Map<String, String> getSymptoms() {
+        return symptoms;
+    }
+
+    public void setSymptoms(Map<String, String> symptoms) {
+        this.symptoms = symptoms;
+    }
+
+    public String getOrganizationID() {
+        return organizationID;
+    }
+
+    public void setOrganizationID(String organizationID) {
+        this.organizationID = organizationID;
+    }
+
+    public String getDoctorName() {
+        return doctorName;
+    }
+
+    public void setDoctorName(String doctorName) {
+        this.doctorName = doctorName;
     }
 }
