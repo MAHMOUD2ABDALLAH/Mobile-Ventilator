@@ -34,6 +34,8 @@ public class SymptomsActivity extends AppCompatActivity {
             Bundle extras = new Bundle();
             extras.putSerializable("symptoms",symptoms);
             intent.putExtras(extras);
+            setResult(1,intent);
+            finish();
         });
     }
 }

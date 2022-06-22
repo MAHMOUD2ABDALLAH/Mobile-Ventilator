@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -30,7 +31,9 @@ public class Session extends AppCompatActivity implements CustomSheetDialog.Cust
                     // Here, no request code
                     Intent data = result.getData();
                     if (data != null) {
-                        newSession.setSymptoms((HashMap<String, String>) data.getSerializableExtra("symptoms"));
+                        HashMap<String, String> h = (HashMap<String, String>) data.getSerializableExtra("symptoms");
+                        Log.e(TAG, "result: " + h);
+                        newSession.setSymptoms(h);
                     }
                 }
             });
@@ -53,12 +56,25 @@ public class Session extends AppCompatActivity implements CustomSheetDialog.Cust
         String temp = newSession.getTemperature() + " °C";
         binding.textView24.setText(temp);
 
-
         getDiseases();
+
+        for (Disease disease : diseases) {
+            if (disease.getHeartRate().get("low") <= newSession.getHeartRate() <= disease.getHeartRate().get("high") &&
+                    disease.getOxygen().get("low") <= newSession.getOxygenPercentage() <= disease.getOxygen().get("high") &&
+                    disease.getTemperature().get("low") <= newSession.getTemperature() <= disease.getTemperature().get("high")) {
+                binding.textView9.setText(disease.getName());
+                newSession.setIllness(disease.getName());
+            }else {
+                binding.textView9.setText("New Target");
+                newSession.setIllness("New Target");
+            }
+        }
+
         customSheetDialog = new CustomSheetDialog(this);
         binding.button11.setOnClickListener(v -> {
                     Intent intent = new Intent(getApplicationContext(), SymptomsActivity.class);
-                    someActivityResultLauncher.launch(intent); }
+                    someActivityResultLauncher.launch(intent);
+                }
         );
         binding.button5.setOnClickListener(v -> customSheetDialog.show(getSupportFragmentManager(), ""));
     }
