@@ -55,12 +55,6 @@ public class RegistrationActivity extends AppCompatActivity {
         return valid;
     }
 
-    public void gotofirstpage(View view) {
-
-        Intent submit = new Intent(this, submission_done.class);
-        startActivity(submit);
-    }
-
     private void registerDoctorToFirestore() {
         RadioButton rbGender = findViewById(binding.rgGender.getCheckedRadioButtonId());
         Doctor newDoctor = new Doctor(

@@ -13,6 +13,9 @@ import com.example.myapplication.custom.CustomSheetDialog;
 import com.example.myapplication.data.model.Disease;
 import com.example.myapplication.data.model.VentilatorSession;
 import com.example.myapplication.databinding.ActivitySessionBinding;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,8 +26,9 @@ public class Session extends AppCompatActivity implements CustomSheetDialog.Cust
     private ActivitySessionBinding binding;
     private VentilatorSession newSession;
     private CustomSheetDialog customSheetDialog;
-
-    private ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
+    private CollectionReference reference;
+    private String currentSessionId;
+    private final ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == Activity.RESULT_OK) {
@@ -34,6 +38,7 @@ public class Session extends AppCompatActivity implements CustomSheetDialog.Cust
                         HashMap<String, String> h = (HashMap<String, String>) data.getSerializableExtra("symptoms");
                         Log.e(TAG, "result: " + h);
                         newSession.setSymptoms(h);
+                        reference.document(currentSessionId).set(newSession, SetOptions.merge());
                     }
                 }
             });
@@ -43,9 +48,13 @@ public class Session extends AppCompatActivity implements CustomSheetDialog.Cust
         super.onCreate(savedInstanceState);
         binding = ActivitySessionBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        reference=FirebaseFirestore.getInstance().collection("VentilatorSessions");
+        currentSessionId=reference.document().getId();
+
         String currentPatientNationalID = getIntent().getExtras().getString("nationalID");
         newSession = new VentilatorSession(currentPatientNationalID,
-                88, 0.72f, 36.8f);
+                150, 0.91f, 0.402f);
 
         String pbm = newSession.getHeartRate() + " PBM";
         binding.textView22.setText(pbm);
@@ -58,16 +67,23 @@ public class Session extends AppCompatActivity implements CustomSheetDialog.Cust
 
         getDiseases();
 
-        for (Disease disease : diseases) {
-            if (disease.getHeartRate().get("low") <= newSession.getHeartRate() <= disease.getHeartRate().get("high") &&
-                    disease.getOxygen().get("low") <= newSession.getOxygenPercentage() <= disease.getOxygen().get("high") &&
-                    disease.getTemperature().get("low") <= newSession.getTemperature() <= disease.getTemperature().get("high")) {
-                binding.textView9.setText(disease.getName());
-                newSession.setIllness(disease.getName());
-            }else {
+
+        for (int i = 0; i < diseases.size(); i++) {
+            Disease disease= diseases.get(i);
+            if (disease.getHeartRate().get("low") <= newSession.getHeartRate() && newSession.getHeartRate() <= disease.getHeartRate().get("high")) {
+                if (disease.getOxygen().get("low") <= newSession.getOxygenPercentage() && newSession.getOxygenPercentage() <= disease.getOxygen().get("high")) {
+                    if (disease.getTemperature().get("low") <= newSession.getTemperature() && newSession.getTemperature() <= disease.getTemperature().get("high")) {
+                        binding.textView9.setText(disease.getName());
+                        newSession.setIllness(disease.getName());
+                        break;
+                    }
+                }
+            } else {
                 binding.textView9.setText("New Target");
                 newSession.setIllness("New Target");
             }
+            if (i==diseases.size()-1)
+                reference.document(currentSessionId).set(newSession);
         }
 
         customSheetDialog = new CustomSheetDialog(this);
@@ -162,7 +178,9 @@ public class Session extends AppCompatActivity implements CustomSheetDialog.Cust
 
     @Override
     public void onCustomSelected(float custom) {
-        String s = (custom * 100) + "%";
-        binding.textView25.setText(s);
+        newSession.setVentilatorOxi(custom);
+        String ventilatorOxi = newSession.getVentilatorOxi() + "%";
+        binding.textView25.setText(ventilatorOxi);
+        reference.document(currentSessionId).set(newSession, SetOptions.merge());
     }
 }

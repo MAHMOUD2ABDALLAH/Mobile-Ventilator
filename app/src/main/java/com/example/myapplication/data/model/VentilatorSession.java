@@ -10,6 +10,7 @@ public class VentilatorSession {
     private int heartRate;
     private float oxygenPercentage;
     private float temperature;
+    private float ventilatorOxi;
     private Map<String,String> symptoms;
     @ServerTimestamp
     private Date date;
@@ -41,6 +42,14 @@ public class VentilatorSession {
 
     public float getTemperature() {
         return temperature;
+    }
+
+    public float getVentilatorOxi() {
+        return  (ventilatorOxi * 100);
+    }
+
+    public void setVentilatorOxi(float ventilatorOxi) {
+        this.ventilatorOxi = ventilatorOxi;
     }
 
     public Date getDate() {

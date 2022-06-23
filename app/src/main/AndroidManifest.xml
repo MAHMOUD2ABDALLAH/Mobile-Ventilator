@@ -33,9 +33,6 @@
             android:name=".LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".submission_done"
-            android:exported="false" />
-        <activity
             android:name=".RegistrationActivity"
             android:exported="false" />
         <activity

@@ -40,6 +40,7 @@
         <entry key="app/src/main/res/layout/activity_session.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_submission_done.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_symptoms.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/activity_view_patient.xml" value="0.1921875" />
         <entry key="app/src/main/res/layout/fragment_custom_sheet_dialog.xml" value="0.1921875" />
         <entry key="app/src/main/res/layout/item_custom.xml" value="0.1921875" />
       </map>
