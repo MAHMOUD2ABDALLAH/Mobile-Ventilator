@@ -13,10 +13,10 @@ import com.example.myapplication.R;
 import java.util.ArrayList;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomViewHolder> {
-    private final ArrayList<Float> customArrayList;
+    private final ArrayList<Integer> customArrayList;
     private CustomClickListener listener;
 
-    public CustomAdapter(ArrayList<Float> customArrayList) {
+    public CustomAdapter(ArrayList<Integer> customArrayList) {
         this.customArrayList = customArrayList;
     }
 
@@ -28,7 +28,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
 
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
-        holder.tvCustomNumber.setText(String.valueOf(customArrayList.get(position)));
+        holder.tvCustomNumber.setText(String.valueOf(customArrayList.get(position)+" %"));
     }
 
     @Override
@@ -51,7 +51,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
     }
 
     interface CustomClickListener {
-        void onCustomClicked(float custom);
+        void onCustomClicked(Integer custom);
     }
 
     void setCustomClickListener(CustomClickListener listener){

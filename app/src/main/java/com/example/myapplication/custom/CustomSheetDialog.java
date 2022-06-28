@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class CustomSheetDialog extends BottomSheetDialogFragment implements CustomAdapter.CustomClickListener {
 
-    private final ArrayList<Float> customRanges = new ArrayList<>();
+    private final ArrayList<Integer> customRanges = new ArrayList<>();
     private final CustomSheetDialogListener dialogListener;
 
     public CustomSheetDialog(CustomSheetDialogListener dialogListener) {
@@ -33,8 +33,8 @@ public class CustomSheetDialog extends BottomSheetDialogFragment implements Cust
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        for (int i = 1; i <= 100; i++) {
-            customRanges.add(i / 100f);
+        for (int i = 10; i <= 100; i+=10) {
+            customRanges.add(i);
         }
 
         RecyclerView rvCustoms = view.findViewById(R.id.rvCustoms);
@@ -45,13 +45,13 @@ public class CustomSheetDialog extends BottomSheetDialogFragment implements Cust
     }
 
     @Override
-    public void onCustomClicked(float custom) {
+    public void onCustomClicked(Integer custom) {
         dialogListener.onCustomSelected(custom);
         this.dismiss();
     }
 
     public interface CustomSheetDialogListener {
-        void onCustomSelected(float custom);
+        void onCustomSelected(int custom);
     }
 
 }

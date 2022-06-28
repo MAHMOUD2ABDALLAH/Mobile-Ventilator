@@ -49,8 +49,8 @@ public class Session extends AppCompatActivity implements CustomSheetDialog.Cust
         binding = ActivitySessionBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        reference=FirebaseFirestore.getInstance().collection("VentilatorSessions");
-        currentSessionId=reference.document().getId();
+        reference = FirebaseFirestore.getInstance().collection("VentilatorSessions");
+        currentSessionId = reference.document().getId();
 
         String currentPatientNationalID = getIntent().getExtras().getString("nationalID");
         newSession = new VentilatorSession(currentPatientNationalID,
@@ -69,20 +69,18 @@ public class Session extends AppCompatActivity implements CustomSheetDialog.Cust
 
 
         for (int i = 0; i < diseases.size(); i++) {
-            Disease disease= diseases.get(i);
-            if (disease.getHeartRate().get("low") <= newSession.getHeartRate() && newSession.getHeartRate() <= disease.getHeartRate().get("high")) {
-                if (disease.getOxygen().get("low") <= newSession.getOxygenPercentage() && newSession.getOxygenPercentage() <= disease.getOxygen().get("high")) {
-                    if (disease.getTemperature().get("low") <= newSession.getTemperature() && newSession.getTemperature() <= disease.getTemperature().get("high")) {
-                        binding.textView9.setText(disease.getName());
-                        newSession.setIllness(disease.getName());
-                        break;
-                    }
-                }
+            Disease disease = diseases.get(i);
+            if (disease.getHeartRate().get("low") <= newSession.getHeartRate() && newSession.getHeartRate() <= disease.getHeartRate().get("high")
+                    && disease.getOxygen().get("low") <= newSession.getOxygenPercentage() && newSession.getOxygenPercentage() <= disease.getOxygen().get("high")
+                    && disease.getTemperature().get("low") <= newSession.getTemperature() && newSession.getTemperature() <= disease.getTemperature().get("high")) {
+                binding.textView9.setText(disease.getName());
+                newSession.setIllness(disease.getName());
+                break;
             } else {
                 binding.textView9.setText("New Target");
                 newSession.setIllness("New Target");
             }
-            if (i==diseases.size()-1)
+            if (i == diseases.size() - 1)
                 reference.document(currentSessionId).set(newSession);
         }
 
@@ -177,7 +175,7 @@ public class Session extends AppCompatActivity implements CustomSheetDialog.Cust
     }
 
     @Override
-    public void onCustomSelected(float custom) {
+    public void onCustomSelected(int custom) {
         newSession.setVentilatorOxi(custom);
         String ventilatorOxi = newSession.getVentilatorOxi() + "%";
         binding.textView25.setText(ventilatorOxi);
