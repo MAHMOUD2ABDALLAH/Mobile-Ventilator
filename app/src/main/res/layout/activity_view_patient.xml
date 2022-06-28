@@ -47,7 +47,7 @@
         app:layout_constraintTop_toBottomOf="@+id/etNationalID" />
 
     <Button
-        android:id="@+id/button10"
+        android:id="@+id/btnDelete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
@@ -68,7 +68,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button10"
+        app:layout_constraintTop_toBottomOf="@+id/btnDelete"
         tools:listitem="@layout/item_session" />
 
     <Button
@@ -81,6 +81,6 @@
         android:text="print"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.235"
-        app:layout_constraintStart_toEndOf="@+id/button10"
+        app:layout_constraintStart_toEndOf="@+id/btnDelete"
         app:layout_constraintTop_toBottomOf="@+id/etNationalID" />
 </androidx.constraintlayout.widget.ConstraintLayout>
