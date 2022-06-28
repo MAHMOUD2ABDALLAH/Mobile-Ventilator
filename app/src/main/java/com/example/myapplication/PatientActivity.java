@@ -66,6 +66,7 @@ public class PatientActivity extends AppCompatActivity {
                     Intent intent=new Intent(getApplicationContext(),Session.class);
                     intent.putExtra("nationalID",newPatient.getNationalID());
             startActivity(intent);
+            finish();
             Toast.makeText(getApplicationContext(), "Patient added successfully", Toast.LENGTH_SHORT).show();
         });
     }

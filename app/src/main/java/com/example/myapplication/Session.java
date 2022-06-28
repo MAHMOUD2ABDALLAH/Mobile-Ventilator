@@ -1,21 +1,17 @@
 package com.example.myapplication;
 
-import android.app.Activity;
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.custom.CustomSheetDialog;
+import com.example.myapplication.data.SharedPrefManager;
 import com.example.myapplication.data.model.Disease;
+import com.example.myapplication.data.model.Doctor;
 import com.example.myapplication.data.model.VentilatorSession;
 import com.example.myapplication.databinding.ActivitySessionBinding;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.SetOptions;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,22 +22,7 @@ public class Session extends AppCompatActivity implements CustomSheetDialog.Cust
     private ActivitySessionBinding binding;
     private VentilatorSession newSession;
     private CustomSheetDialog customSheetDialog;
-    private CollectionReference reference;
-    private String currentSessionId;
-    private final ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                if (result.getResultCode() == Activity.RESULT_OK) {
-                    // Here, no request code
-                    Intent data = result.getData();
-                    if (data != null) {
-                        HashMap<String, String> h = (HashMap<String, String>) data.getSerializableExtra("symptoms");
-                        Log.e(TAG, "result: " + h);
-                        newSession.setSymptoms(h);
-                        reference.document(currentSessionId).set(newSession, SetOptions.merge());
-                    }
-                }
-            });
+    private SharedPrefManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +30,11 @@ public class Session extends AppCompatActivity implements CustomSheetDialog.Cust
         binding = ActivitySessionBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        reference = FirebaseFirestore.getInstance().collection("VentilatorSessions");
-        currentSessionId = reference.document().getId();
-
+        manager = new SharedPrefManager(this);
+        Doctor doctor = manager.getDoctor();
         String currentPatientNationalID = getIntent().getExtras().getString("nationalID");
         newSession = new VentilatorSession(currentPatientNationalID,
-                150, 0.91f, 0.402f);
+                150, 0.91f, 0.402f, doctor.getOrganizationID(), doctor.getFullName());
 
         String pbm = newSession.getHeartRate() + " PBM";
         binding.textView22.setText(pbm);
@@ -80,14 +60,14 @@ public class Session extends AppCompatActivity implements CustomSheetDialog.Cust
                 binding.textView9.setText("New Target");
                 newSession.setIllness("New Target");
             }
-            if (i == diseases.size() - 1)
-                reference.document(currentSessionId).set(newSession);
         }
 
         customSheetDialog = new CustomSheetDialog(this);
         binding.button11.setOnClickListener(v -> {
                     Intent intent = new Intent(getApplicationContext(), SymptomsActivity.class);
-                    someActivityResultLauncher.launch(intent);
+                    intent.putExtra("newSession", newSession);
+                    startActivity(intent);
+                    finish();
                 }
         );
         binding.button5.setOnClickListener(v -> customSheetDialog.show(getSupportFragmentManager(), ""));
@@ -179,6 +159,5 @@ public class Session extends AppCompatActivity implements CustomSheetDialog.Cust
         newSession.setVentilatorOxi(custom);
         String ventilatorOxi = newSession.getVentilatorOxi() + "%";
         binding.textView25.setText(ventilatorOxi);
-        reference.document(currentSessionId).set(newSession, SetOptions.merge());
     }
 }

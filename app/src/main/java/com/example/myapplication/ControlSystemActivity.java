@@ -6,14 +6,17 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.data.SharedPrefManager;
 import com.example.myapplication.viewPatient.ViewPatientActivity;
 
 public class ControlSystemActivity extends AppCompatActivity {
 
+    private SharedPrefManager manager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_control_system);
+        manager=new SharedPrefManager(this);
     }
 
     public void gotopatientpage(View view) {
@@ -26,14 +29,14 @@ public class ControlSystemActivity extends AppCompatActivity {
         startActivity(delete);
     }
 
-    public void gotoprintpage(View view) {
-        Intent print=new Intent(this, PrintingActivity.class);
-        startActivity(print);
-    }
-
     public void gotosplashview(View view) {
         Intent cluster=new Intent(this, ClusteringActivity.class);
         startActivity(cluster);
 
+    }
+
+    public void gotologinpage(View view) {
+        manager.clearData();
+        startActivity(new Intent(getApplicationContext(),LoginActivity.class));
     }
 }

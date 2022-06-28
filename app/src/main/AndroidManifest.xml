@@ -28,6 +28,7 @@
             android:exported="false" />
         <activity
             android:name=".ControlSystemActivity"
+            android:launchMode="singleInstance"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"
@@ -40,6 +41,7 @@
             android:exported="false" />
         <activity
             android:name=".FirstChoiceActivity"
+
             android:exported="false" />
         <activity
             android:name=".SplashActivity"

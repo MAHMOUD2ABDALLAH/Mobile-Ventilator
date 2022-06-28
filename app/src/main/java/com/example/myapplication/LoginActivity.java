@@ -8,6 +8,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.data.SharedPrefManager;
 import com.example.myapplication.data.model.Doctor;
 import com.example.myapplication.databinding.ActivityLoginPageBinding;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -16,8 +17,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
-
-    public static Doctor CURRENT_DOCTOR;
+    private SharedPrefManager manager;
     private ActivityLoginPageBinding binding;
 
     @Override
@@ -25,7 +25,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityLoginPageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        manager=new SharedPrefManager(this);
         binding.btnLogin.setOnClickListener(v -> {
             if (validFields()) {
                 String fullName = Objects.requireNonNull(binding.etFullName.getText()).toString();
@@ -52,10 +52,12 @@ public class LoginActivity extends AppCompatActivity {
                 .whereEqualTo("fullName", userName)
                 .whereEqualTo("password", password).get().addOnSuccessListener(queryDocumentSnapshots -> {
                     if (queryDocumentSnapshots.getDocuments().size()>0){
-                        CURRENT_DOCTOR = queryDocumentSnapshots.getDocuments().get(0).toObject(Doctor.class);
-                        startActivity(new Intent(getApplicationContext(), ControlSystemActivity.class));
-                        Toast.makeText(getApplicationContext(), "Doctor " + CURRENT_DOCTOR.getFullName() + " logged in successfully", Toast.LENGTH_SHORT).show();
-
+                        Doctor doctor = queryDocumentSnapshots.getDocuments().get(0).toObject(Doctor.class);
+                        if (doctor!=null){
+                            manager.saveDoctor(doctor);
+                            startActivity(new Intent(getApplicationContext(), ControlSystemActivity.class));
+                            Toast.makeText(getApplicationContext(), "Doctor " + doctor.getFullName() + " logged in successfully", Toast.LENGTH_SHORT).show();
+                        }
                     }else{
                         Toast.makeText(getApplicationContext(), "Doctor has no permission ", Toast.LENGTH_SHORT).show();
                         clearForm();
