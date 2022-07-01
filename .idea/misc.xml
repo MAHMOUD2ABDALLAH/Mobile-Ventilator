@@ -43,6 +43,7 @@
         <entry key="app/src/main/res/layout/activity_view_patient.xml" value="0.1921875" />
         <entry key="app/src/main/res/layout/fragment_custom_sheet_dialog.xml" value="0.1921875" />
         <entry key="app/src/main/res/layout/item_custom.xml" value="0.1921875" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2" />
       </map>
     </option>
   </component>
