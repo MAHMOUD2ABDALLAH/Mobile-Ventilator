@@ -8,16 +8,16 @@ import java.util.Map;
 public class Disease {
     private String name;
     @SerializedName("Heart rate")
-    private Map<String,Integer> heartRate;
+    private Map<String,Object> heartRate;
     @SerializedName("Oxygen")
-    private Map<String,Float> oxygen;
+    private Map<String,Object> oxygen;
     @SerializedName("Temperature")
-    private Map<String,Float> temperature;
+    private Map<String,Object> temperature;
 
     public Disease() {
     }
 
-    public Disease(String name, Map<String, Integer> heartRate, Map<String, Float> oxygen, Map<String, Float> temperature) {
+    public Disease(String name, Map<String, Object> heartRate, Map<String, Object> oxygen, Map<String, Object> temperature) {
         this.name = name;
         this.heartRate = heartRate;
         this.oxygen = oxygen;
@@ -28,15 +28,15 @@ public class Disease {
         return name;
     }
 
-    public Map<String, Integer> getHeartRate() {
+    public Map<String, Object> getHeartRate() {
         return heartRate;
     }
 
-    public Map<String, Float> getOxygen() {
+    public Map<String, Object> getOxygen() {
         return oxygen;
     }
 
-    public Map<String, Float> getTemperature() {
+    public Map<String, Object> getTemperature() {
         return temperature;
     }
 }
