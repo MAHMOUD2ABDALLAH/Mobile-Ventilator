@@ -3,6 +3,7 @@ package com.example.myapplication.viewPatient;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.view.View;
@@ -20,6 +21,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class ViewPatientActivity extends AppCompatActivity {
@@ -27,13 +29,13 @@ public class ViewPatientActivity extends AppCompatActivity {
     private ActivityViewPatientBinding binding;
     private final ArrayList<VentilatorSession> sessions = new ArrayList<>();
     private PatientSessionAdapter patientSessionAdapter;
+    private PdfWriterManager pdfWriterManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityViewPatientBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         binding.btnSearch.setOnClickListener(view -> getPatientByNationalID(binding.etNationalID.getText().toString()));
         binding.btnDelete.setOnClickListener(v -> {
             if (TextUtils.isEmpty(binding.etNationalID.getText()))
@@ -51,6 +53,17 @@ public class ViewPatientActivity extends AppCompatActivity {
                         .show();
             }
         });
+        binding.btnPrint.setOnClickListener(v -> {
+            if (sessions.isEmpty())
+                Toast.makeText(this, "No data to print", Toast.LENGTH_SHORT).show();
+            else printSessions();
+        });
+    }
+
+    private void printSessions() {
+        String filePath= Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString();
+        pdfWriterManager=new PdfWriterManager(new File(filePath,"sessions.pdf"),sessions);
+        pdfWriterManager.saveSessionsAsPdf(this);
     }
 
     @SuppressLint("NotifyDataSetChanged")
