@@ -31,7 +31,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView21"
-        app:layout_constraintVertical_bias="0.108" />
+        app:layout_constraintVertical_bias="0.574" />
 
     <TextView
         android:id="@+id/textView23"
@@ -44,7 +44,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView9"
-        app:layout_constraintVertical_bias="0.518" />
+        app:layout_constraintVertical_bias="0.519" />
 
     <TextView
         android:id="@+id/textView24"
@@ -55,30 +55,28 @@
         android:hint="TEMP"
         app:layout_constraintBottom_toTopOf="@+id/textView25"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.705"
+        app:layout_constraintHorizontal_bias="0.628"
         app:layout_constraintStart_toEndOf="@+id/textView23"
         app:layout_constraintTop_toBottomOf="@+id/textView21"
-        app:layout_constraintVertical_bias="0.108" />
+        app:layout_constraintVertical_bias="0.574" />
 
     <TextView
         android:id="@+id/textView25"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="92dp"
-        android:hint="CUSTOM OXI"
+        android:hint="C.OXI"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView21" />
+        tools:layout_editor_absoluteY="274dp" />
 
     <Button
         android:id="@+id/button5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="48dp"
         android:backgroundTint="@color/red"
         android:text="custom"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView25" />
 
@@ -86,32 +84,21 @@
         android:id="@+id/button11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
+        android:layout_marginBottom="236dp"
         android:backgroundTint="@color/red"
         android:text="symtopms"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button5" />
-
-    <Button
-        android:id="@+id/button15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:layout_marginBottom="238dp"
-        android:backgroundTint="@color/red"
-        android:text="go back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button11"
+        app:layout_constraintTop_toBottomOf="@+id/button5"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="disease type"
+        android:layout_marginTop="60dp"
+        android:text="disease "
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"

@@ -10,6 +10,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.annimon.stream.Collector;
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
+import com.chaquo.python.PyObject;
+import com.chaquo.python.Python;
+import com.chaquo.python.android.AndroidPlatform;
 import com.example.myapplication.data.model.Disease;
 import com.example.myapplication.data.model.VentilatorSession;
 import com.example.myapplication.databinding.ActivityClusteringBinding;
@@ -30,6 +33,13 @@ public class ClusteringActivity extends AppCompatActivity {
         binding = ActivityClusteringBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         getDiseases();
+
+        if(!Python.isStarted()) {
+            Python.start(new AndroidPlatform(this));
+            Python py =Python.getInstance();
+            final PyObject pyobj=py.getModule("script");// here we will give name of our python file
+            pyobj.
+        }
 
         getVentilatorSessions();
     }

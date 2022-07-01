@@ -39,4 +39,7 @@ public class Disease {
     public Map<String, Object> getTemperature() {
         return temperature;
     }
+
+    public void setName(String id) {
+    }
 }
