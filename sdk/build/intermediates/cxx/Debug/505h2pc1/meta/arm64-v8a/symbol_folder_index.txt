@@ -1,0 +1,1 @@
+G:\Mobile-Ventilator\sdk\build\intermediates\cxx\Debug\505h2pc1\obj\arm64-v8a
