@@ -29,12 +29,23 @@ public class Session extends AppCompatActivity implements CustomSheetDialog.Cust
         super.onCreate(savedInstanceState);
         binding = ActivitySessionBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        int min_val1 = 70;
+        int max_val1 = 170;
+        int heartrate = (int) (Math.random() * (max_val1 - min_val1));
+
+        float min_val2 = 0.85f;
+        float max_val2 = 1.0f;
+        float oxygen = (float) (Math.random() * (max_val2 - min_val2));
+
+        float min_val3 = 0.37f;
+        float max_val3 = 0.40f;
+        float temperature = (float) (Math.random() * (max_val3 - min_val3));
 
         manager = new SharedPrefManager(this);
         Doctor doctor = manager.getDoctor();
         String currentPatientNationalID = getIntent().getExtras().getString("nationalID");
         newSession = new VentilatorSession(currentPatientNationalID,
-                150, 0.91f, 0.402f, doctor.getOrganizationID(), doctor.getFullName());
+                heartrate, oxygen, temperature, doctor.getOrganizationID(), doctor.getFullName());
 
         String pbm = newSession.getHeartRate() + " PBM";
         binding.textView22.setText(pbm);
@@ -50,9 +61,9 @@ public class Session extends AppCompatActivity implements CustomSheetDialog.Cust
 
         for (int i = 0; i < diseases.size(); i++) {
             Disease disease = diseases.get(i);
-            if (disease.getHeartRate().get("low") <= newSession.getHeartRate() && newSession.getHeartRate() <= disease.getHeartRate().get("high")
-                    && disease.getOxygen().get("low") <= newSession.getOxygenPercentage() && newSession.getOxygenPercentage() <= disease.getOxygen().get("high")
-                    && disease.getTemperature().get("low") <= newSession.getTemperature() && newSession.getTemperature() <= disease.getTemperature().get("high")) {
+            if ((int) disease.getHeartRate().get("low") <= newSession.getHeartRate() && newSession.getHeartRate() <= (int) disease.getHeartRate().get("high")
+                    && (float) disease.getOxygen().get("low") <= newSession.getOxygenPercentage() && newSession.getOxygenPercentage() <= (float) disease.getOxygen().get("high")
+                    && (float) disease.getTemperature().get("low") <= newSession.getTemperature() && newSession.getTemperature() <= (float) disease.getTemperature().get("high")) {
                 binding.textView9.setText(disease.getName());
                 newSession.setIllness(disease.getName());
                 break;
@@ -74,15 +85,16 @@ public class Session extends AppCompatActivity implements CustomSheetDialog.Cust
     }
 
     private void getDiseases() {
-        HashMap<String, Integer> heartRate = new HashMap<>();
+        HashMap<String, Object> heartRate = new HashMap<>();
         heartRate.put("low", 60);
         heartRate.put("high", 100);
-        HashMap<String, Float> oxygen = new HashMap<>();
+        HashMap<String, Object> oxygen = new HashMap<>();
         oxygen.put("low", 0.9f);
         oxygen.put("high", 1.0f);
-        HashMap<String, Float> temperature = new HashMap<>();
+        HashMap<String, Object> temperature = new HashMap<>();
         temperature.put("low", 0.361f);
         temperature.put("high", 0.372f);
+
         diseases.add(new Disease(
                 "Normal",
                 heartRate,
@@ -90,13 +102,13 @@ public class Session extends AppCompatActivity implements CustomSheetDialog.Cust
                 temperature
         ));
 
-        HashMap<String, Integer> asthmaHeartRate = new HashMap<>();
+        HashMap<String, Object> asthmaHeartRate = new HashMap<>();
         asthmaHeartRate.put("low", 120);
         asthmaHeartRate.put("high", 150);
-        HashMap<String, Float> asthmaOxygen = new HashMap<>();
+        HashMap<String, Object> asthmaOxygen = new HashMap<>();
         asthmaOxygen.put("low", 0.95f);
         asthmaOxygen.put("high", 1.0f);
-        HashMap<String, Float> asthmaTemperature = new HashMap<>();
+        HashMap<String, Object> asthmaTemperature = new HashMap<>();
         asthmaTemperature.put("low", 0.2f);
         asthmaTemperature.put("high", 0.216f);
         diseases.add(new Disease(
@@ -106,13 +118,13 @@ public class Session extends AppCompatActivity implements CustomSheetDialog.Cust
                 asthmaTemperature
         ));
 
-        HashMap<String, Integer> pneumoniaHeartRate = new HashMap<>();
+        HashMap<String, Object> pneumoniaHeartRate = new HashMap<>();
         pneumoniaHeartRate.put("low", 150);
         pneumoniaHeartRate.put("high", 180);
-        HashMap<String, Float> pneumoniaOxygen = new HashMap<>();
+        HashMap<String, Object> pneumoniaOxygen = new HashMap<>();
         pneumoniaOxygen.put("low", 0.91f);
         pneumoniaOxygen.put("high", 0.94f);
-        HashMap<String, Float> pneumoniaTemperature = new HashMap<>();
+        HashMap<String, Object> pneumoniaTemperature = new HashMap<>();
         pneumoniaTemperature.put("low", 0.4f);
         pneumoniaTemperature.put("high", 0.405f);
         diseases.add(new Disease(
@@ -122,13 +134,13 @@ public class Session extends AppCompatActivity implements CustomSheetDialog.Cust
                 pneumoniaTemperature
         ));
 
-        HashMap<String, Integer> covid19HeartRate = new HashMap<>();
+        HashMap<String, Object> covid19HeartRate = new HashMap<>();
         covid19HeartRate.put("low", 100);
         covid19HeartRate.put("high", 120);
-        HashMap<String, Float> covid19Oxygen = new HashMap<>();
+        HashMap<String, Object> covid19Oxygen = new HashMap<>();
         covid19Oxygen.put("low", 0.88f);
         covid19Oxygen.put("high", 0.92f);
-        HashMap<String, Float> covid19Temperature = new HashMap<>();
+        HashMap<String, Object> covid19Temperature = new HashMap<>();
         covid19Temperature.put("low", 0.378f);
         covid19Temperature.put("high", 0.392f);
         diseases.add(new Disease(
@@ -137,21 +149,6 @@ public class Session extends AppCompatActivity implements CustomSheetDialog.Cust
                 covid19Oxygen,
                 covid19Temperature
         ));
-//        FirebaseFirestore.getInstance().collection("Diseases")
-//                .get().addOnSuccessListener(queryDocumentSnapshots -> {
-//            Log.e(TAG, "getDiseases: hooooo"+queryDocumentSnapshots.getDocuments().size() );
-//                    if (queryDocumentSnapshots.getDocuments().size() > 0) {
-//                        for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
-//                            Disease disease = snapshot.toObject(Disease.class);
-//                            Log.e(TAG, "getDiseases: "+disease );
-//                            if (disease != null) {
-//                                disease.setName(snapshot.getId());
-//                                diseases.add(disease);
-//                                Log.e(TAG, "onSuccess: "+diseases );
-//                            }
-//                        }
-//                    }
-//                }).addOnFailureListener(e -> Log.e(TAG, "onFailure: "+e ));
     }
 
     @Override

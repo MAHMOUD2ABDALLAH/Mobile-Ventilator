@@ -35,16 +35,6 @@ android {
                 install "scipy"
                 install "requests==2.24.0"
 
-                // An sdist or wheel filename, relative to the project directory:
-                install "MyPackage-1.2.3-py2.py3-none-any.whl"
-
-                // A directory containing a setup.py, relative to the project
-                // directory (must contain at least one slash):
-                install "./MyPackage"
-
-                // "-r"` followed by a requirements filename, relative to the
-                // project directory:
-                install "-r", "requirements.txt"
             }
         }
     }
@@ -90,6 +80,8 @@ dependencies {
 
     implementation "com.annimon:stream:1.2.2"
     implementation("com.itextpdf:itext7-core:7.1.8")
+
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

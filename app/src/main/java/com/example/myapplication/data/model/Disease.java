@@ -13,6 +13,7 @@ public class Disease {
     private Map<String,Object> oxygen;
     @SerializedName("Temperature")
     private Map<String,Object> temperature;
+    private float totalAverage;
 
     public Disease() {
     }
@@ -40,6 +41,9 @@ public class Disease {
         return temperature;
     }
 
-    public void setName(String id) {
+    public float getTotalAverage() {
+        if (heartRate.get("average")!=null){
+            return (float) ((int)heartRate.get("average")+ (float)oxygen.get("average")+ (float)temperature.get("average"))/3;
+        }else return 0;
     }
 }
