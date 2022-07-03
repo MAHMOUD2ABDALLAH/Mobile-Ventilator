@@ -24,9 +24,9 @@ public class ControlSystemActivity extends AppCompatActivity {
         startActivity(add);
     }
 
-    public void gotodelete(View view) {
-        Intent delete=new Intent(this, ViewPatientActivity.class);
-        startActivity(delete);
+    public void viewpatientcontent(View view) {
+        Intent View=new Intent(this, ViewPatientActivity.class);
+        startActivity(View);
     }
 
     public void gotosplashview(View view) {

@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Doctor " + doctor.getFullName() + " logged in successfully", Toast.LENGTH_SHORT).show();
                         }
                     }else{
-                        Toast.makeText(getApplicationContext(), "Doctor has no permission ", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Doctor not found ", Toast.LENGTH_SHORT).show();
                         clearForm();
                     }
                   }).addOnFailureListener(e -> Toast.makeText(getApplicationContext(),  "username or password is wrong", Toast.LENGTH_SHORT).show());

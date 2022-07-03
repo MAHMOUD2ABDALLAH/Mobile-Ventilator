@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
+import com.example.myapplication.data.DiseaseDistribution;
 import com.example.myapplication.data.model.Disease;
 import com.example.myapplication.data.model.VentilatorSession;
 import com.example.myapplication.databinding.ActivityClusteringBinding;
@@ -29,7 +30,8 @@ public class ClusteringActivity extends AppCompatActivity {
     private static final String TAG = "ClusteringActivity";
     private ActivityClusteringBinding binding;
     private final ArrayList<Disease> diseases = new ArrayList<>();
-    ArrayList<VentilatorSession> sessions = new ArrayList<>();
+    private final ArrayList<VentilatorSession> sessions = new ArrayList<>();
+    private final ArrayList<DiseaseDistribution> distributions = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +54,6 @@ public class ClusteringActivity extends AppCompatActivity {
                         sessions.add(session);
                     if (i == snapshots.getDocuments().size() - 1) {
                         binding.progressBar.setVisibility(View.GONE);
-                        Log.e(TAG, "getVentilatorSessions: here");
                         List<Integer> heartRates = Stream.of(sessions).map(VentilatorSession::getHeartRate)
                                 .collect(Collectors.toList());
 
@@ -64,6 +65,7 @@ public class ClusteringActivity extends AppCompatActivity {
                         int asthma = 0;
                         int pneumonia = 0;
                         int covid_19 = 0;
+                        int new_target = 0;
                         for (int j = 0; j < diseases.size(); j++) {
                             heartRates.add((int) diseases.get(j).getHeartRate().get("average"));
                             oxygenPercentages.add((float) diseases.get(j).getOxygen().get("average"));
@@ -74,6 +76,7 @@ public class ClusteringActivity extends AppCompatActivity {
                             ArrayList<Float> c2_asthma = new ArrayList<>();
                             ArrayList<Float> c3_pneumonia = new ArrayList<>();
                             ArrayList<Float> c4_covid_19 = new ArrayList<>();
+                            ArrayList<Float> cnew_target = new ArrayList<>();
 
                             for (int x = 0; x < diseases.size(); x++) {
                                 int averageMHeartRate = heartRates.get(k) - heartRates.get(x);
@@ -88,9 +91,10 @@ public class ClusteringActivity extends AppCompatActivity {
                                     c3_pneumonia.add(manhattanDistancMe);
                                 else if (x == 3)
                                     c4_covid_19.add(manhattanDistancMe);
+                                else cnew_target.add(manhattanDistancMe);
                             }
-                            int p=0;
-                             while (p < c4_covid_19.size()) {
+                            int p = 0;
+                            while (p < c4_covid_19.size()) {
                                 if (c1_normal.get(p) <= c2_asthma.get(p) && c1_normal.get(p) <= c3_pneumonia.get(p) && c1_normal.get(p) <= c4_covid_19.get(p)) {
                                     normal++;
                                     p++;
@@ -108,21 +112,31 @@ public class ClusteringActivity extends AppCompatActivity {
                                     covid_19++;
                                     p++;
                                     continue;
+                                } else {
+                                    new_target++;
+                                    p++;
+                                    continue;
+
                                 }
 
                             }
                         }
-                        Log.e(TAG, "getVentilatorSessions: normal:\t " + normal + "\nasthma:\t" + asthma + "\npneumonia:\t" + pneumonia + "\ncovid-19:\t" + covid_19);
-                        int TNOP=normal+asthma+pneumonia+covid_19;
-                        float normalC=normal/TNOP*100;
-                        float asthmaC=asthma/TNOP*100;
-                        float pneumoniaC=pneumonia/TNOP*100;
-                        float covid_19C=covid_19/TNOP*100;
-                        setData(sessions.size());
+                        int TNOP = normal + asthma + pneumonia + covid_19 + new_target;
+                        float normalC = normal / TNOP * 100;
+                        float asthmaC = asthma / TNOP * 100;
+                        float pneumoniaC = pneumonia / TNOP * 100;
+                        float covid_19C = covid_19 / TNOP * 100;
+                        float new_targetC = new_target / TNOP * 100;
 
+                        distributions.add(new DiseaseDistribution("Normal", normalC));
+                        distributions.add(new DiseaseDistribution("Asthma", asthmaC));
+                        distributions.add(new DiseaseDistribution("Pneumonia", pneumoniaC));
+                        distributions.add(new DiseaseDistribution("Covid-19", covid_19C));
+                        distributions.add(new DiseaseDistribution("New Target", new_targetC));
+                        setData(distributions.size());
                     }
                 }
-            }
+            } else setData(sessions.size());
         });
     }
 
@@ -213,6 +227,11 @@ public class ClusteringActivity extends AppCompatActivity {
             for (int i = 0; i < diseases.size(); i++) {
                 entries.add(new PieEntry(/*(float) ((Math.random() * range) + range / 5)*/ diseases.get(i).getTotalAverage(),
                         diseases.get(i).getName()));
+            }
+        } else {
+            for (int i = 0; i < distributions.size(); i++) {
+                entries.add(new PieEntry(/*(float) ((Math.random() * range) + range / 5)*/ distributions.get(i).getValue(),
+                        distributions.get(i).getDiseaseName()+'%'));
             }
         }
 

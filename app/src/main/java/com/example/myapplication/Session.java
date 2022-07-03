@@ -29,16 +29,16 @@ public class Session extends AppCompatActivity implements CustomSheetDialog.Cust
         super.onCreate(savedInstanceState);
         binding = ActivitySessionBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        int min_val1 = 70;
-        int max_val1 = 170;
+        int min_val1 = 60;
+        int max_val1 = 180;
         int heartrate = (int) (Math.random() * (max_val1 - min_val1));
 
-        float min_val2 = 0.85f;
+        float min_val2 = 0.88f;
         float max_val2 = 1.0f;
         float oxygen = (float) (Math.random() * (max_val2 - min_val2));
 
-        float min_val3 = 0.37f;
-        float max_val3 = 0.40f;
+        float min_val3 = 0.20f;
+        float max_val3 = 0.41f;
         float temperature = (float) (Math.random() * (max_val3 - min_val3));
 
         manager = new SharedPrefManager(this);
