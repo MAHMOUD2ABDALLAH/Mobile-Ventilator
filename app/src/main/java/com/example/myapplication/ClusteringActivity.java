@@ -100,15 +100,15 @@ public class ClusteringActivity extends AppCompatActivity {
                                     p++;
                                     continue;
 
-                                } else if (c2_asthma.get(p) <= c1_normal.get(p) && c2_asthma.get(p) <= c3_pneumonia.get(p) && c2_asthma.get(p) <= c4_covid_19.get(p)) {
+                                } else if (c2_asthma.get(p) <= c1_normal.get(p) && c2_asthma.get(p) <= c3_pneumonia.get(p) && c2_asthma.get(p) <= c4_covid_19.get(p) && c2_asthma.get(p) <= cnew_target.get(p)) {
                                     asthma++;
                                     p++;
                                     continue;
-                                } else if (c3_pneumonia.get(p) <= c1_normal.get(p) && c3_pneumonia.get(p) <= c2_asthma.get(p) && c3_pneumonia.get(p) <= c4_covid_19.get(p)) {
+                                } else if (c3_pneumonia.get(p) <= c1_normal.get(p) && c3_pneumonia.get(p) <= c2_asthma.get(p) && c3_pneumonia.get(p) <= c4_covid_19.get(p) && c3_pneumonia.get(p) <= cnew_target.get(p)) {
                                     pneumonia++;
                                     p++;
                                     continue;
-                                } else if (c4_covid_19.get(p) <= c1_normal.get(p) && c4_covid_19.get(p) <= c2_asthma.get(p) && c4_covid_19.get(p) <= c3_pneumonia.get(p)) {
+                                } else if (c4_covid_19.get(p) <= c1_normal.get(p) && c4_covid_19.get(p) <= c2_asthma.get(p) && c4_covid_19.get(p) <= c3_pneumonia.get(p)&&c4_covid_19.get(p)<=cnew_target.get(p)) {
                                     covid_19++;
                                     p++;
                                     continue;
@@ -116,12 +116,10 @@ public class ClusteringActivity extends AppCompatActivity {
                                     new_target++;
                                     p++;
                                     continue;
-
                                 }
-
                             }
                         }
-                        int TNOP = normal + asthma + pneumonia + covid_19 + new_target;
+                        float TNOP = normal + asthma + pneumonia + covid_19 + new_target;
                         float normalC = normal / TNOP * 100;
                         float asthmaC = asthma / TNOP * 100;
                         float pneumoniaC = pneumonia / TNOP * 100;
@@ -133,6 +131,7 @@ public class ClusteringActivity extends AppCompatActivity {
                         distributions.add(new DiseaseDistribution("Pneumonia", pneumoniaC));
                         distributions.add(new DiseaseDistribution("Covid-19", covid_19C));
                         distributions.add(new DiseaseDistribution("New Target", new_targetC));
+                        Log.e(TAG, "getVentilatorSessions: " + distributions);
                         setData(distributions.size());
                     }
                 }
@@ -216,6 +215,25 @@ public class ClusteringActivity extends AppCompatActivity {
                 covid19Oxygen,
                 covid19Temperature
         ));
+
+        HashMap<String, Object> newTargetHeartRate = new HashMap<>();
+        newTargetHeartRate.put("low", 60);
+        newTargetHeartRate.put("high", 180);
+        newTargetHeartRate.put("average", (60 + 180) / 2);
+        HashMap<String, Object> newTargetOxygen = new HashMap<>();
+        newTargetOxygen.put("low", 0.88f);
+        newTargetOxygen.put("high", 1.0f);
+        newTargetOxygen.put("average", (0.88f + 1.0f) / 2);
+        HashMap<String, Object> newTargetTemperature = new HashMap<>();
+        newTargetTemperature.put("low", 0.20f);
+        newTargetTemperature.put("high", 0.41f);
+        newTargetTemperature.put("average", (0.378f + 0.392f) / 2);
+        diseases.add(new Disease(
+                "Covid-19",
+                newTargetHeartRate,
+                newTargetOxygen,
+                newTargetTemperature
+        ));
     }
 
     private void setData(float range) {
@@ -231,7 +249,7 @@ public class ClusteringActivity extends AppCompatActivity {
         } else {
             for (int i = 0; i < distributions.size(); i++) {
                 entries.add(new PieEntry(/*(float) ((Math.random() * range) + range / 5)*/ distributions.get(i).getValue(),
-                        distributions.get(i).getDiseaseName()+'%'));
+                        distributions.get(i).getDiseaseName() + '%'));
             }
         }
 
